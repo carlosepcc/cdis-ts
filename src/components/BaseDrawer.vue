@@ -60,9 +60,6 @@ const drawerItems = [
           <DrawerItem v-bind="drawerItem" />
         </template>
       </q-list>
-      <q-footer reveal class="bg-info text-white q-pa-xs q-px-sm">
-        <span class="text-caption"> carlosepc. CCEL. 2022 </span>
-      </q-footer>
     </q-scroll-area>
   </q-drawer>
 </template>
