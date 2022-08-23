@@ -1,116 +1,60 @@
+<script setup>
+// Components
+import BaseDrawer from 'src/components/BaseDrawer.vue';
+import { ref } from 'vue';
+
+// DRAWER
+const leftDrawerOpen = ref(false);
+const toggleLeftDrawer = () => (leftDrawerOpen.value = !leftDrawerOpen.value);
+</script>
+
 <template>
-  <q-layout view="lHh Lpr lFf">
-    <q-header elevated>
-      <q-toolbar>
-        <q-btn
-          flat
-          dense
-          round
-          icon="menu"
-          aria-label="Menu"
-          @click="toggleLeftDrawer"
-        />
+  <q-layout view="hHh LpR fFf">
+    <q-header reveal class="bg-primary text-white">
+      <q-toolbar class="brand-bar">
+        <div id="brand-frame" class="text-primary">
+          <!--          BOTON MENU-->
+          <q-btn
+            dense
+            flat
+            round
+            icon="menu"
+            aria-label="Menú"
+            title="Menú"
+            @click="toggleLeftDrawer"
+          />
 
-        <q-toolbar-title>
-          Quasar App
-        </q-toolbar-title>
-
-        <div>Quasar v{{ $q.version }}</div>
+          <q-toolbar-title> CCEL </q-toolbar-title>
+        </div>
       </q-toolbar>
     </q-header>
 
-    <q-drawer
-      v-model="leftDrawerOpen"
-      show-if-above
-      bordered
-    >
-      <q-list>
-        <q-item-label
-          header
-        >
-          Essential Links
-        </q-item-label>
+    <!--MENU LATERAL (DRAWER "gaveta") -->
+    <BaseDrawer v-model="leftDrawerOpen" />
 
-        <EssentialLink
-          v-for="link in essentialLinks"
-          :key="link.title"
-          v-bind="link"
-        />
-      </q-list>
-    </q-drawer>
-
-    <q-page-container>
-      <router-view />
+    <!-- CONTENEDOR DE PAGINAS -->
+    <q-page-container class="page">
+      <router-view v-slot="{ Component, route }">
+        <transition>
+          <keep-alive>
+            <component :is="Component" :key="route.name" />
+          </keep-alive>
+        </transition>
+      </router-view>
     </q-page-container>
+
+    <q-footer reveal class="bg-primary text-white q-pa-xs q-px-sm">
+      <q-avatar size="sm">
+        <img
+          src="https://raw.githubusercontent.com/carlosepcc/cdis-quasar-vite/main/src/public/brand/imagotipo-mini.png"
+          style="opacity: 0.5"
+          alt
+        />
+      </q-avatar>
+      <span style="color: #fffa" class="text-caption q-ml-sm"
+        >Universidad de las Ciencias Informáticas. XAUCE, CDIS. ©
+        2021-2022</span
+      >
+    </q-footer>
   </q-layout>
 </template>
-
-<script lang="ts">
-import { defineComponent, ref } from 'vue';
-import EssentialLink from 'components/EssentialLink.vue';
-
-const linksList = [
-  {
-    title: 'Docs',
-    caption: 'quasar.dev',
-    icon: 'school',
-    link: 'https://quasar.dev'
-  },
-  {
-    title: 'Github',
-    caption: 'github.com/quasarframework',
-    icon: 'code',
-    link: 'https://github.com/quasarframework'
-  },
-  {
-    title: 'Discord Chat Channel',
-    caption: 'chat.quasar.dev',
-    icon: 'chat',
-    link: 'https://chat.quasar.dev'
-  },
-  {
-    title: 'Forum',
-    caption: 'forum.quasar.dev',
-    icon: 'record_voice_over',
-    link: 'https://forum.quasar.dev'
-  },
-  {
-    title: 'Twitter',
-    caption: '@quasarframework',
-    icon: 'rss_feed',
-    link: 'https://twitter.quasar.dev'
-  },
-  {
-    title: 'Facebook',
-    caption: '@QuasarFramework',
-    icon: 'public',
-    link: 'https://facebook.quasar.dev'
-  },
-  {
-    title: 'Quasar Awesome',
-    caption: 'Community Quasar projects',
-    icon: 'favorite',
-    link: 'https://awesome.quasar.dev'
-  }
-];
-
-export default defineComponent({
-  name: 'MainLayout',
-
-  components: {
-    EssentialLink
-  },
-
-  setup () {
-    const leftDrawerOpen = ref(false)
-
-    return {
-      essentialLinks: linksList,
-      leftDrawerOpen,
-      toggleLeftDrawer () {
-        leftDrawerOpen.value = !leftDrawerOpen.value
-      }
-    }
-  }
-});
-</script>
