@@ -43,18 +43,12 @@ const toggleLeftDrawer = () => (leftDrawerOpen.value = !leftDrawerOpen.value);
       </router-view>
     </q-page-container>
 
-    <q-footer reveal class="bg-primary text-white q-pa-xs q-px-sm">
-      <q-avatar size="sm">
-        <img
-          src="https://raw.githubusercontent.com/carlosepcc/cdis-quasar-vite/main/src/public/brand/imagotipo-mini.png"
-          style="opacity: 0.5"
-          alt
-        />
-      </q-avatar>
-      <span style="color: #fffa" class="text-caption q-ml-sm"
-        >Universidad de las Ciencias Informáticas. XAUCE, CDIS. ©
-        2021-2022</span
-      >
+    <q-footer elevated class="bg-grey-8 text-white">
+      <q-tabs align="center">
+        <q-route-tab to="agenda" no-caps label="Agenda" icon="phone" />
+        <q-route-tab to="shop" no-caps label="Tienda" icon="shop" />
+        <q-route-tab to="main" no-caps label="Favoritos" icon="favorite" />
+      </q-tabs>
     </q-footer>
   </q-layout>
 </template>
