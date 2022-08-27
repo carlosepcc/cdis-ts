@@ -1,7 +1,9 @@
 import { defineStore } from 'pinia';
+import { LocalStorage } from 'quasar'
+
 export interface USSDObject {number: string, label: string, id: string, type: string}
 
-export const useCounterStore = defineStore('counter', {
+const useUSSDStore = defineStore('ussd', {
   state: () => ({
     ussds: [
       {
@@ -19,5 +21,13 @@ export const useCounterStore = defineStore('counter', {
     addUSSD(newUSSD:USSDObject) {
       this.ussds.push(newUSSD)
     },
+    saveInLocalStorage(){
+      LocalStorage.set('localUSSDs', this.ussds)
+    },
+    loadFromLocalStorage(){
+      return LocalStorage.getItem('localUSSDs')
+    }
   },
 });
+
+export default useUSSDStore
